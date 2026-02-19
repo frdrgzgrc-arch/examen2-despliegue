@@ -29,5 +29,7 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_KEY }}
-        source: "dist/examen/browser/**"
+        source: "dist/examen/browser/*"
         target: "/var/www/html/examen"
+        strip_components: 3
+
