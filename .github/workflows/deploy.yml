@@ -1,0 +1,33 @@
+name: Deploy Angular to VPS
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v3
+
+    - name: Instalar Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Instalar dependencias
+      run: npm ci
+
+    - name: Compilar Angular
+      run: ng build --configuration production
+
+    - name: Copiar archivos al VPS
+      uses: appleboy/scp-action@v0.1.6
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        source: "dist/examen/browser/**"
+        target: "/var/www/html/examen"
