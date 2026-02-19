@@ -21,7 +21,7 @@ jobs:
       run: npm ci
 
     - name: Compilar Angular
-      run: ng build --configuration production
+      run: npm run build -- --configuration production
 
     - name: Copiar archivos al VPS
       uses: appleboy/scp-action@v0.1.6
